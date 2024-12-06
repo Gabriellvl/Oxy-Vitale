@@ -18,7 +18,7 @@ const HomePage = () => {
             {/* Découvrir Plus */}
             <div
                 ref={discoverRef}
-                className="snap-start h-screen flex justify-center items-center bg-gradient-to-b from-green-100 via-green-300 to-green-150 relative"
+                className="snap-start h-screen flex justify-center items-center bg-gradient-to-b from-indigo-100 via-green-600 to-green-200 relative"
             >
                 <div>
                     {/* Warm Welcome Section */}
@@ -84,7 +84,7 @@ const HomePage = () => {
     }
     <div
         ref={contactRef}
-        className="snap-start h-screen flex justify-center items-center bg-gradient-to-b from-indigo-100 via-green-300 to-gray-100 relative"
+        className="snap-start h-screen flex justify-center items-center bg-gradient-to-b from-indigo-100 via-green-600 to-gray-100 relative"
     >
         <UpOutlined
             onClick={() => scrollToSection(reserveRef)}
