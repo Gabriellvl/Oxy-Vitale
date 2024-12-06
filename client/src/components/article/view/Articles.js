@@ -33,16 +33,11 @@ function Articles() {
 
     }, []);
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms))
-    }
-
     const fetchArticles = async (themes = [], searchTerm = '') => {
         let url = `${apiUrl}/articles`;
         console.log("fetch new articles")
         setLoading(true);
 
-        await sleep(100000);
 
         if (searchTerm) {
             url += `/searchTerm/${searchTerm}`; // Endpoint for searching by term
