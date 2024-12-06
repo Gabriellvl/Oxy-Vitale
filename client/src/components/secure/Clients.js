@@ -1,20 +1,38 @@
-import React, {useEffect, useState} from 'react';
-import {Table, Button, Tag, Popconfirm, message} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Table, Button, Tag, Popconfirm, message, Input, Space } from 'antd';
+import { EditOutlined, DeleteOutlined, SearchOutlined } from "@ant-design/icons";
 import moment from 'moment';
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
-// Table component
 const Clients = () => {
-    const [data, setData] = useState([]);  // Move useState inside the component
+    const [data, setData] = useState([]);
+    const [searchText, setSearchText] = useState("");  // State to hold search input
+    const [filteredData, setFilteredData] = useState([]);  // State to hold filtered data
 
     useEffect(() => {
         axios.get(`${apiUrl}/client/`)
-            .then((response) => setData(response.data))
+            .then((response) => {
+                setData(response.data);
+                setFilteredData(response.data);  // Initially, display all data
+            })
             .catch((error) => console.error(error));
-    }, []);  // Move useEffect inside the component
+    }, []);
+
+    // Function to handle search input change
+    const handleSearch = (value) => {
+        setSearchText(value);
+
+        if (value) {
+            const filtered = data.filter((client) =>
+                client.first.toLowerCase().startsWith(value.toLowerCase())
+            );
+            setFilteredData(filtered);
+        } else {
+            setFilteredData(data);  // Reset to full data if search is cleared
+        }
+    };
 
     // Function to calculate validity and return color status
     const getValidityStatus = (date) => {
@@ -86,7 +104,7 @@ const Clients = () => {
                             okText="Yes"
                             cancelText="No"
                             okButtonProps={{
-                                ghost: true, // Make the "Yes" button a ghost button
+                                ghost: true,
                             }}
                         >
                             Delete
@@ -95,7 +113,6 @@ const Clients = () => {
                 </>
             ),
         }
-
     ];
 
     // Function to handle edit button click
@@ -106,24 +123,36 @@ const Clients = () => {
     const handleDelete = async (id) => {
         try {
             await axios.delete(`${apiUrl}/client/${id}`);
-            // Optionally, update the table data after deleting
             setData((prevData) => prevData.filter((client) => client._id !== id));
-            console.log(`Client with id ${id} deleted successfully`);
+            setFilteredData((prevData) => prevData.filter((client) => client._id !== id));
             message.success("Successfully deleted client");
         } catch (error) {
             console.error(`Error deleting client with id ${id}:`, error);
+            message.error("Failed to delete client");
         }
     };
 
-
     return (
-        <Table
-            columns={columns}
-            dataSource={data.map((client) => ({ ...client, key: client._id }))} // Use _id as key
-            onChange={(pagination, filters, sorter, extra) => {
-                console.log('params', pagination, filters, sorter, extra);
-            }}
-        />
+        <div>
+            <Space style={{ marginBottom: 16 }}>
+                <Input
+                    placeholder="Search by first name"
+                    value={searchText}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    prefix={<SearchOutlined />}
+                    allowClear
+                    style={{ width: 300 }}
+                />
+            </Space>
+
+            <Table
+                columns={columns}
+                dataSource={filteredData.map((client) => ({ ...client, key: client._id }))}
+                onChange={(pagination, filters, sorter, extra) => {
+                    console.log('params', pagination, filters, sorter, extra);
+                }}
+            />
+        </div>
     );
 };
 

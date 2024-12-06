@@ -27,8 +27,30 @@ import {HomeOutlined} from "@ant-design/icons";
 import {Button} from "antd";
 import Clients from "./components/secure/Clients";
 import ClientEdit from "./components/secure/ClientEdit";
+import Availability from "./components/secure/Availability";
+import CalendarAvailability from "./components/secure/CalendarAvailability";
+import CalendarSelector from "./components/secure/CalendarSelector";
+import ConfirmBooking from "./components/secure/ConfirmBooking";
+import RoomsPage from "./components/secure/RoomsPage";
+import RoomPage from "./components/secure/RoomPage";
+import BookingTable from "./components/secure/BookingTable";
+import AddRoom from "./components/secure/AddRoom";
+import EditRoom from "./components/secure/EditRoom";
+import EditRooms from "./components/secure/EditRooms";
 
 // Non-Secure Layout (with NavBar)
+function NonSecureLayoutNoFooter() {
+    return (
+        <div className="flex flex-col">
+            <NavBar className="z-50 fixed"/>
+            <div className="h-0"></div>
+            <div className="snap-y snap-mandatory overflow-hidden">
+                <Outlet/> {/* Content for each route */}
+            </div>
+        </div>
+    );
+}
+
 function NonSecureLayout() {
     return (
         <>
@@ -75,14 +97,18 @@ function App() {
             <HashRouter>
                 <AuthProvider store={store}>
                     <Routes>
+
+                        <Route element={<NonSecureLayoutNoFooter />}>
+                            <Route path="/" element={<HomePage/>} />
+                        </Route>
+
                         {/* Non-secure routes with NavBar */}
                         <Route element={<NonSecureLayout />}>
-                            <Route path="/" element={<HomePage />} />
                             <Route path="/articles" element={<Articles />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/articles/:urlId" element={<Article />} />
                             <Route path="/contact" element={<ContactPage />} />
-                            <Route path="/shop" element={<ComingSoonPage />} />
+                            <Route path="/coming-soon" element={<ComingSoonPage />} />
                             <Route path="/horaires" element={<Timetable />} />
                             <Route path="/tarifs" element={<Prices />} />
                         </Route>
@@ -101,6 +127,16 @@ function App() {
                             <Route path="/client/add" element={<ClientAdd />} />
                             <Route path="/client" element={<Clients />} />
                             <Route path="/client/edit/:id" element={<ClientEdit/>} />
+                            <Route path="/daily-availability" element={<Availability />} />
+                            <Route path="/calendar-checkout" element={<CalendarAvailability />} />
+                            <Route path="/calendar-selector/:roomId" element={<CalendarSelector />} />
+                            <Route path="/confirm-booking" element={<ConfirmBooking />} />
+                            <Route path="/rooms" element={<RoomsPage/>} />
+                            <Route path="/rooms/:roomId" element={<RoomPage/>} />
+                            <Route path="/bookings" element={<BookingTable/>} />
+                            <Route path="/add-room" element={<AddRoom />} />
+                            <Route path="/edit-room/:roomId" element={<EditRoom />} />
+                            <Route path="/edit-rooms" element={<EditRooms/>} />
                         </Route>
 
                         {/* 404 Not Found route */}

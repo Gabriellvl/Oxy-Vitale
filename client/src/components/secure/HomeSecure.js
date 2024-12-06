@@ -35,10 +35,22 @@ function HomeSecure() {
             icon: <TeamOutlined />,
             children: [
                 { key: '5', label: 'Add Client', path: 'client/add'},
-                { key: '6', label: 'View', path: 'client'},
+                { key: '6', label: 'View Clients', path: 'client'},
             ],
         },
-        { key: '3', icon: <BookOutlined />, label: 'Bookings' },
+        {
+            key: 'sub3',
+            label: 'Bookings',
+            icon: <BookOutlined />,
+            children: [
+                { key: '7', label: 'Week Schedule', path: 'daily-availability'},
+                { key: '8', label: 'Date Management', path: 'calendar-checkout'},
+                { key: '10', label: 'Book rooms', path: 'rooms'},
+                { key: '11', label: 'Overview Bookings', path: 'bookings'},
+                { key: '12', label: 'Add Room', path: 'add-room'},
+                { key: '13', label: 'Edit Rooms', path: 'edit-rooms'},
+            ],
+        }
     ];
 
     const toggleCollapsed = () => {
@@ -58,7 +70,7 @@ function HomeSecure() {
 
     return (
         <div className="w-1/2 flex justify-center">
-            <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
+            <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }} ghost>
                 {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             </Button>
             <Menu

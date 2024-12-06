@@ -1,0 +1,77 @@
+{
+  "weeklyAvailability": [
+    {
+      "day": "monday",
+      "morning": {
+        "start": "10:00",
+        "end": "12:00"
+      },
+      "evening": {
+        "start": "16:00",
+        "end": "19:00"
+      }
+    },
+    {
+      "day": "tuesday",
+      "morning": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "evening": {
+        "start": "16:00",
+        "end": "20:00"
+      }
+    },
+    {
+      "day": "wednesday",
+      "morning": {
+        "start": "09:00",
+        "end": "13:00"
+      },
+      "evening": {
+        "start": "16:00",
+        "end": "19:00"
+      }
+    },
+    {
+      "day": "thursday",
+      "morning": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "evening": {
+        "start": "16:00",
+        "end": "19:00"
+      }
+    },
+    {
+      "day": "friday",
+      "morning": {
+        "start": "09:00",
+        "end": "12:00"
+      },
+      "evening": null
+    },
+    {
+      "day": "saturday",
+      "morning": null,
+      "evening": {
+        "start": "10:00",
+        "end": "13:00"
+      }
+    },
+    {
+      "day": "sunday",
+      "morning": null,
+      "evening": null
+    }
+  ],
+  "checkedOutDates": [
+    "2024-10-18",
+    "2024-10-25",
+    "2024-10-31",
+    "2024-11-07",
+    "2024-12-05",
+    "2025-01-11"
+  ]
+}

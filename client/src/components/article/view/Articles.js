@@ -3,7 +3,7 @@ import axios from 'axios';
 import ArticleCard from "./ArticleCard";
 import ArticleCard2 from "./ArticleCard2";
 import bmc from "../../../bmc-button.png";
-import { Select, Space, Button} from 'antd';
+import {Select, Space, Button, Spin} from 'antd';
 import Search from "antd/es/input/Search";
 import {PhoneOutlined} from '@ant-design/icons';
 import {Helmet} from "react-helmet";
@@ -15,6 +15,7 @@ function Articles() {
     const [themes, setThemes] = useState([]);
     const [selectedThemes, setSelectedThemes] = useState([]);
     const [searchKey, setSearchKey] = useState(0);
+    const [loading, setLoading] = useState(false);
 
 
     const apiUrl = process.env.REACT_APP_BACKEND_URL;
@@ -32,9 +33,16 @@ function Articles() {
 
     }, []);
 
-    const fetchArticles = (themes = [], searchTerm = '') => {
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+    }
+
+    const fetchArticles = async (themes = [], searchTerm = '') => {
         let url = `${apiUrl}/articles`;
         console.log("fetch new articles")
+        setLoading(true);
+
+        await sleep(100000);
 
         if (searchTerm) {
             url += `/searchTerm/${searchTerm}`; // Endpoint for searching by term
@@ -69,6 +77,9 @@ function Articles() {
             })
             .catch(error => {
                 setArticles([]);
+            })
+            .finally(() => {
+                setLoading(false); // End loading
             });
     };
 
@@ -94,11 +105,17 @@ function Articles() {
             </Helmet>
             <div className="flex-col w-11/12 ml-4 md:ml-0 md:mr-4 lg:mr-8 md:w-3/5 lg:w-3/5 max-w-2xl">
 
-                {articles.map((article, index) => (
-                    <div className="mb-6" key={index}>
-                        <ArticleCard2 article={article} />
+                {loading ? (
+                    <div className="flex h-screen">
+                        <Spin size="large" tip="Un instant, s'il vous plaît" />
                     </div>
-                ))}
+                ) : (
+                    articles.map((article, index) => (
+                        <div className="mb-6" key={index}>
+                            <ArticleCard2 article={article} />
+                        </div>
+                    ))
+                )}
             </div>
             <div className="w-full md:w-72 md:border-l-2 border-gray-300 pl-4 md:sticky top-0 md:text-right order-first md:order-last mb-6 md:mb-0">
                 <Space direction={"vertical"} size={"middle"}>
