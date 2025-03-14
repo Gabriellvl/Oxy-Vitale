@@ -98,7 +98,7 @@ function App() {
                 <AuthProvider store={store}>
                     <Routes>
 
-                        /*
+                        {/*
 
                         <Route element={<NonSecureLayoutNoFooter />}>
                             <Route path="/" element={<HomePage/>} />
@@ -144,7 +144,8 @@ function App() {
                         {// 404 Not Found route }
                         <Route path="*" element={<NotFound />} />
 
-                        */
+                        */}
+        
                     </Routes>
                 </AuthProvider>
             </HashRouter>
