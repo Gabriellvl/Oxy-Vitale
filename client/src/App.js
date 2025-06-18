@@ -102,7 +102,7 @@ function App() {
                             <Route path="/" element={<HomePage/>} />
                         </Route>
 
-                        {// Non-secure routes with NavBar }
+                        {/* Non-secure routes with NavBar */}
                         <Route element={<NonSecureLayout />}>
                             <Route path="/articles" element={<Articles />} />
                             <Route path="/login" element={<Login />} />
@@ -113,7 +113,7 @@ function App() {
                             <Route path="/tarifs" element={<Prices />} />
                         </Route>
 
-                        {// Secure routes without NavBar }
+                        {/* Secure routes without NavBar */}
                         <Route element={<RequireAuth fallbackPath="/login"><SecureLayout /></RequireAuth>}>
                             <Route path="/secure" element={<HomeSecure />} />
                             <Route path="/add" element={<CreateArticle />} />
@@ -139,7 +139,7 @@ function App() {
                             <Route path="/edit-rooms" element={<EditRooms/>} />
                         </Route>
 
-                        {// 404 Not Found route }
+                        {/* 404 Not Found route */}
                         <Route path="*" element={<NotFound />} />
         
                     </Routes>
