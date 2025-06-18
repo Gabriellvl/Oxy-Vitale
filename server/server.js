@@ -65,9 +65,9 @@ app.get('/author-dashboard', ensureAuthor, (req, res) => {
 });
 
 
-const interval = 30000; // Interval in milliseconds (30 seconds)
+const interval = 6 * 60 * 60 * 1000; // Interval in milliseconds (30 seconds)
 
-// hack render.com lol
+// hack render.com lol, constant ping
 function reloadWebsite() {
     axios.get(url)
         .then(response => {
@@ -78,8 +78,8 @@ function reloadWebsite() {
         });
 }
 
-// they caught me
-// setInterval(reloadWebsite, interval);
+// they caught me, hopefully not now
+setInterval(reloadWebsite, interval);
 
 app.listen(5000, () => {
     console.log('Server is running on http://localhost:5000');
