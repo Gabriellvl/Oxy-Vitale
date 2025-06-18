@@ -58,7 +58,7 @@ function NonSecureLayout() {
             <div className="main-content">
                 <Outlet /> {/* This is where the content for each route will be rendered */}
             </div>
-            <Footer />
+            {/* <Footer /> no footer */}
         </>
     );
 }
@@ -79,7 +79,7 @@ function SecureLayout() {
             <div className="main-content">
                 <Outlet /> {/* This is where the content for each secure route will be rendered */}
             </div>
-            <Footer />
+            {/* <Footer /> no footer */}
         </>
     );
 }
