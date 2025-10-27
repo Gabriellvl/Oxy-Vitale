@@ -114,6 +114,7 @@ function App() {
                         </Route>
 
                         {/* Secure routes without NavBar */}
+
                         <Route element={<RequireAuth fallbackPath="/login"><SecureLayout /></RequireAuth>}>
                             <Route path="/secure" element={<HomeSecure />} />
                             <Route path="/add" element={<CreateArticle />} />
@@ -123,6 +124,10 @@ function App() {
                             <Route path="/publish" element={<Publish />} />
                             <Route path="/view/:urlId" element={<Article hide={false} />} />
                             <Route path="/view" element={<ViewArticles />} />
+                        </Route>   
+
+                        { 
+                            /*
                             <Route path="/emails" element={<EmailsView />} />
                             <Route path="/client/add" element={<ClientAdd />} />
                             <Route path="/client" element={<Clients />} />
@@ -137,7 +142,8 @@ function App() {
                             <Route path="/add-room" element={<AddRoom />} />
                             <Route path="/edit-room/:roomId" element={<EditRoom />} />
                             <Route path="/edit-rooms" element={<EditRooms/>} />
-                        </Route>
+                            */
+                        }
 
                         {/* 404 Not Found route */}
                         <Route path="*" element={<NotFound />} />
