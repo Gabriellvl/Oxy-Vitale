@@ -15,19 +15,43 @@ const bookRoutes = require('./bookRoute');
 const cors = require('cors');
 const axios = require('axios');
 
+const app = express();
+app.use(express.json());
+
 const origin = process.env.FRONT_END_URL;
 const url = process.env.BACK_END_URL;
 
-
-var corsOptions = {
+const allowList = [
     origin,
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'https://graceful-choux-936180.netlify.app',
+];
+
+const netlifyRegex = /^https?:\/\/[a-z0-9-]+\.netlify\.app$/i;
+
+const corsOptions = {
+    origin: (origin, cb) => {
+        if (!origin) return cb(null, true);
+
+        const allowed =
+            allowList.includes(origin) || netlifyRegex.test(origin);
+
+        return allowed ? cb(null, true) : cb(new Error('Not allowed by CORS'));
+    },
+    methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 204,
 };
 
-const app = express();
-app.use(express.json());
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+app.use((req, res, next) => { res.vary('Origin'); next(); });
+
+
 
 mongoose.connect(process.env.URL_MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected successfully to MongoDB Atlas'))
